@@ -6,7 +6,8 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
        search : '',
        attribute : '', 
 		placeholdercontext : '',
-	   value : ''  ,
+	   func : '',
+       value : ''  ,
 		focussetter : false,
 		layoutlevel : false
     },
@@ -16,12 +17,10 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
 	 	if((dojo.isIE < 11) == false){
 			this.observers = [];
 			if(this.layoutlevel){
-				var placeholders = dojo.query(this.placeholdercontext+ ' .mx-placeholder', this.mxform.domNode);
+				var incubator = dojo.query('.mx-incubator')[0];
 				
-				for(var i=0; i<placeholders.length;i++){
-					var placeholder = placeholders[i];
-					this.observeDOM( placeholder, dojo.hitch(this, this.checkReload), false);
-				};
+				this.observeDOM( incubator, dojo.hitch(this, this.checkReload), false);
+				
 			}
 		}
 		this.actLoaded();
@@ -47,22 +46,23 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
 		
 		mutationrecord = mutationrecord[0];
 		// if class changed and previous was hidden
-		if(mutationrecord.attributeName == "class" && mutationrecord.oldValue == "mx-placeholder mx-placeholder-hidden"){
-			this.manipulateUX();
+		if(mutationrecord.removedNodes.length > 0){
+			this.manipulateUX(mutationrecord.removedNodes[0]);
 		}
 	},
-	manipulateUX : function(){
-		var nodes = dojo.query(this.search, this.mxform.domNode);
+	
+	manipulateUX : function(nodeContext){
+		var nodes = dojo.query(this.search, nodeContext);
 			 
 		for(var x = 0; x < nodes.length; x++){
-		  dojo.attr(nodes[x], this.attribute, this.value);
+		   dojo.attr(nodes[x], this.attribute, this.value);
 		}
 		this.setFocus();
 	},
 	setFocus : function(){
 		if(this.focussetter){
 				
-			var elements = dojo.query(this.placeholdercontext+ " .mx-placeholder input", this.mxform.domNode);
+			var elements = dojo.query(this.placeholdercontext+ " input", dojo.query(".mx-incubator")[0]);
 					
 			for(var i=0; i<elements.length; i++){
 				var el = elements[i];
@@ -96,7 +96,7 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
 			this.observers.push(obs);
 			
 			// observe for attribute change, Mendix changes the .class attribute. 
-			obs.observe( obj, { attributes:true,attributeOldValue:true});
+			obs.observe( obj, { childList:true});
         }
         else if( this.eventListenerSupported ){
 			// IE lower than 11 not supported, to implement?!
