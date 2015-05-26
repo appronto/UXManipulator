@@ -16,12 +16,9 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
        // Observe a specific DOM element:
 	 	if((dojo.isIE < 11) == false){
 			this.observers = [];
-			if(this.layoutlevel){
-				var incubator = dojo.query('.mx-incubator')[0];
-				
-				this.observeDOM( incubator, dojo.hitch(this, this.checkReload), false);
-				
-			}
+			var incubator = dojo.query('.mx-incubator')[0];
+			this.observeDOM( incubator, dojo.hitch(this, this.checkReload), false);
+			
 		}
 		this.actLoaded();
         
@@ -37,7 +34,7 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
 	},
     update : function (obj, callback){
 		if(!this.layoutlevel){
-			this.manipulateUX();
+			this.manipulateUX(dojo.query('.mx-incubator')[0]);
 		}
     	callback && callback();
     	
@@ -48,6 +45,9 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
 		// if class changed and previous was hidden
 		if(mutationrecord.removedNodes.length > 0){
 			this.manipulateUX(mutationrecord.removedNodes[0]);
+			if(!this.layoutlevel){
+				this.observers[0].disconnect();
+			}
 		}
 	},
 	
@@ -57,12 +57,12 @@ mendix.widget.declare("UXManipulator.UXManipulator", {
 		for(var x = 0; x < nodes.length; x++){
 		   dojo.attr(nodes[x], this.attribute, this.value);
 		}
-		this.setFocus();
+		this.setFocus(nodeContext);
 	},
-	setFocus : function(){
+	setFocus : function(nodeContext){
 		if(this.focussetter){
 				
-			var elements = dojo.query(this.placeholdercontext+ " input", dojo.query(".mx-incubator")[0]);
+			var elements = dojo.query(this.placeholdercontext+ " input", nodeContext);
 					
 			for(var i=0; i<elements.length; i++){
 				var el = elements[i];
