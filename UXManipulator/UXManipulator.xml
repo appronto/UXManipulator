@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="UXManipulator.UXManipulator" needsEntityContext="false" xmlns="http://www.mendix.com/widget/1.0/">
+	<name>UXManipulator</name>
+	<description>To influence UX.</description>
+	<icon></icon>
+<properties>
+		
+		
+        <property key="search" type="string">
+            <caption>Elements to search for</caption>
+            <category>Behavior</category>
+            <description>http://dojotoolkit.org/reference-guide/1.7/dojo/query.html</description>
+           
+        </property>
+        
+         <property key="value" type="string" required="false">
+            <caption>String value of javascript function</caption>
+            <category>Behavior</category>
+            <description>F</description>
+           
+        </property>
+         <property key="attribute" type="string" required="false">
+            <caption>Attribute to manipulate</caption>
+            <category>Behavior</category>
+            <description></description>
+           
+        </property>
+		 <property key="placeholdercontext" type="string" required="false">
+            <caption>Search for placeholder changes within class</caption>
+            <category>Behavior</category>
+            <description></description>
+           
+        </property>
+		<property key="layoutlevel" type="boolean" defaultValue="false" required="true">
+            <caption>Set to true if this the widget is placed on layout level and needs to be executed if main container (new form) changes </caption>
+            <category>Behavior</category>
+            <description></description>
+           
+        </property>
+		 <property key="focussetter" type="boolean" defaultValue="false" required="true">
+            <caption>Set Focus on first field</caption>
+            <category>Quick wins</category>
+            <description></description>
+           
+        </property>
+    </properties>
+</widget>
