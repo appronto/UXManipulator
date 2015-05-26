@@ -14,7 +14,7 @@
         </property>
         
          <property key="value" type="string" required="false">
-            <caption>String value of javascript function</caption>
+            <caption>String value or javascript function</caption>
             <category>Behavior</category>
             <description>F</description>
            
@@ -26,15 +26,15 @@
            
         </property>
 		 <property key="placeholdercontext" type="string" required="false">
-            <caption>Search for placeholder changes within class</caption>
-            <category>Behavior</category>
-            <description></description>
+            <caption>Focus input context class</caption>
+            <category>Quick wins</category>
+            <description>Search for input for focus withing class</description>
            
         </property>
 		<property key="layoutlevel" type="boolean" defaultValue="false" required="true">
-            <caption>Set to true if this the widget is placed on layout level and needs to be executed if main container (new form) changes </caption>
+            <caption>Layoutlevel widget</caption>
             <category>Behavior</category>
-            <description></description>
+            <description>Set to true if this the widget is placed on layout level and needs to be executed if main container (new form) changes</description>
            
         </property>
 		 <property key="focussetter" type="boolean" defaultValue="false" required="true">
