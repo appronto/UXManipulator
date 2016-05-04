@@ -5,7 +5,7 @@
 			<widgetFile path="UXManipulator/UXManipulator.xml"/>
 		</widgetFiles>
 		<files>
-			<file path="UXManipulator/"/>
+			<file path="UXManipulator/widget/"/>
 		</files>
 	</clientModule>
 </package>
